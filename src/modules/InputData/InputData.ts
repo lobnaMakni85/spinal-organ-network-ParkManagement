@@ -230,7 +230,17 @@ console.log("*************************",this.token);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0];
-console.log(JSON.stringify(bays));
+//console.log(JSON.stringify(bays));
+const bay=bays.map((el:any)=> {
+  const name=el["ns2:name"][0];
+  return {id:el["ns2:idbay"][0],
+  name,
+  etage:name.split(" ")[0].split("")[0],
+  zone:name.split(" ")[0].split("")[1],
+  numero:name.split(" ")[1]
+  }
+  })
+  console.log(JSON.stringify(bay));
 })});
 
     }
