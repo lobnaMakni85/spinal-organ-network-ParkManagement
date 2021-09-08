@@ -229,7 +229,7 @@ console.log("*************************",this.token);
    //console.log(statusCode);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
-const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"][0];
+const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0];
 console.log(JSON.stringify(bays));
 })});
 
@@ -346,7 +346,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
 console.log("la liste des voitures ************")
 await this.getBays();
 console.log("état des voitures ---------------------------------")
-await this.getRtStatusBays();
+//await this.getRtStatusBays();
     if (this.devices.length > 0) {
       const idx = Math.floor(Math.random() * this.devices.length);
       this.updateDevice(this.devices[idx]);
