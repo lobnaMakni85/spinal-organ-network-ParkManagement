@@ -29,6 +29,8 @@ import {
   InputDataEndpointDataType,
   InputDataEndpointType
 } from "./InputDataModel/InputDataModel";
+const xml2js = require("xml2js");
+
 
 type onDataFunctionType = (obj: InputDataDevice) => void;
 
@@ -51,7 +53,7 @@ class InputData {
    * @memberof InputData
    */
   private devices: InputDataDevice[];
-  
+private token :any=null;  
 
   /**
    *Creates an instance of InputData.
@@ -69,9 +71,9 @@ class InputData {
    * @private
    * @memberof InputData
    */
-  private onDataInterval() {
+  private async onDataInterval() {
     if (this.onData !== null) {
-      this.onData(this.getAndUpdateOneRandomDevice());
+      this.onData(await this.getAndUpdateOneRandomDevice());
     }
   }
 
@@ -84,12 +86,9 @@ class InputData {
   }
 
 
-  getToken(){
-
-  const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.wsdl';
-
+async  getToken(){
+const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
   const soapRequest = require('easy-soap-request');
-  
   const xml = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
               <soapenv:Header/>
@@ -98,9 +97,9 @@ class InputData {
            
                  <cp3:login>
            
-                    <username>"BOS"</username>
+                    <username>BOS</username>
            
-                    <password>"21232f297a57a5a743894a0e4a801fc3"</password>
+                    <password>21232f297a57a5a743894a0e4a801fc3</password>
            
                  </cp3:login>
            
@@ -109,31 +108,37 @@ class InputData {
            </soapenv:Envelope>`;
               
   // usage of module
-  (async () => {
-    const { response } = await soapRequest({ url: url, xml: xml, timeout: 1000 }); // Optional timeout parameter(milliseconds)
+try{  const { response } = await soapRequest({ url: url, xml: xml}); // Optional timeout parameter(milliseconds)
     const { headers, body, statusCode } = response;
     console.log("HEADERS**********")
     console.log(headers);
     console.log("BODY**********")
-    console.log(body);
+return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
+console.log(result["SOAP-ENV:Envelope"]['SOAP-ENV:Body'][0]["ns1:loginResponse"][0].token[0]);
+resolve(result["SOAP-ENV:Envelope"]['SOAP-ENV:Body'][0]["ns1:loginResponse"][0].token[0]);
+this.token=result["SOAP-ENV:Envelope"]['SOAP-ENV:Body'][0]["ns1:loginResponse"][0].token[0];
+});
     console.log("STATUS CODE**********")
     console.log(statusCode);
-  })();
-  return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
-    resolve(result["SOAP-ENV:Envelope"]['SOAP-ENV:Body'][0]["ns1:loginResponse"][0].token[0]);
-    });
-        console.log("STATUS CODE**********")
-        console.log(statusCode);
-    
-     });
-    
-  }
 
- async getRtStatusBays(token){
-    if(!token){
-      token=await this.getToken();
-    
-    const xml=`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://localhost/CP3Service/public/CP3WebInterface">
+ });}
+catch(e){}
+
+}
+
+
+ async getRtStatusBays(){
+  const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
+
+  const soapRequest = require('easy-soap-request');
+  
+    if(this.token==null){
+      this.token=await this.getToken();
+console.log("recherche token")   
+ }
+else{
+console.log("*************************",this.token);
+    const xml=`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
     <soapenv:Header/>
  
@@ -141,16 +146,98 @@ class InputData {
  
        <cp3:getRtBaysStatus>
  
-          <token>${token}</token>
+          <token>${this.token}</token>
  
        </cp3:getRtBaysStatus>
  
     </soapenv:Body>
  
  </soapenv:Envelope>`;
-  }
+  try{
+  const { response } = await soapRequest({ url: url, xml: xml }); // Optional timeout parameter(milliseconds)
+  const { headers, body, statusCode } = response; 
+// console.log("HEADERS**********")
+  //  console.log(headers);
+   // console.log("BODY**********")
+  //  console.log(body);
+   // console.log("STATUS CODE**********")
+   // console.log(statusCode);
 
-  }
+return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
+const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getRtBaysStatusResponse"][0]["rtBaysStatusList"][0];
+console.log(JSON.stringify(bays));
+})});
+
+    }
+
+catch(error){
+//console.log(e)
+if (error.reponse.statusCode === 401) {
+  
+		  console.log("error 401")
+		  await this.getToken()
+		   
+		}
+}
+}
+}
+
+
+async getBays(){
+  const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
+
+  const soapRequest = require('easy-soap-request');
+
+    if(this.token==null){
+      this.token=await this.getToken();
+console.log("recherche token")
+ }
+else{
+console.log("*************************",this.token);
+    const xml=`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
+
+    <soapenv:Header/>
+
+   <soapenv:Body>
+
+      <cp3:getBays>
+
+         <token>${this.token}</token>
+
+      </cp3:getBays>
+
+   </soapenv:Body>
+
+</soapenv:Envelope>`;
+  try{
+  const { response } = await soapRequest({ url: url, xml: xml }); // Optional timeout parameter(milliseconds)
+  const { headers, body, statusCode } = response;
+   //console.log("HEADERS**********")
+   //console.log(headers);
+   //console.log("BODY**********")
+   //console.log(body);
+  // console.log("STATUS CODE**********")
+   //console.log(statusCode);
+
+return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
+const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"][0];
+console.log(JSON.stringify(bays));
+})});
+
+    }
+
+catch(error){
+//console.log(e)
+if (error.reponse.statusCode === 401) {
+  
+                  console.log("error 401")
+                  await this.getToken()
+
+                }
+}
+}
+}
+
 
   /**
    * @private
@@ -164,7 +251,7 @@ class InputData {
     
   }
 
-  /**
+/**
    * @private
    * @returns {InputDataDevice}
    * @memberof InputData
@@ -245,16 +332,17 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    * @returns {InputDataDevice}
    * @memberof InputData
    */
-  private getAndUpdateOneRandomDevice(): InputDataDevice {
-
+  private async  getAndUpdateOneRandomDevice() {
+//this.token = await this.getToken();
+await this.getBays();
+await this.getRtStatusBays();
     if (this.devices.length > 0) {
-
       const idx = Math.floor(Math.random() * this.devices.length);
       this.updateDevice(this.devices[idx]);
       return this.devices[idx];
     }
     this.generateData();
-    return this.getAndUpdateOneRandomDevice();
+    //return this.getAndUpdateOneRandomDevice();
   }
 }
 
