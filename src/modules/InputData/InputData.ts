@@ -220,7 +220,7 @@ console.log("*************************",this.token);
    //console.log(statusCode);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
-const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0];
+const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"][0];
 console.log(JSON.stringify(bays));
 })});
 
