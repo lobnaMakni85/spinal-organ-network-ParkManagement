@@ -334,7 +334,9 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    */
   private async  getAndUpdateOneRandomDevice() {
 //this.token = await this.getToken();
+console.log("la liste des voitures ************")
 await this.getBays();
+console.log("état des voitures ---------------------------------")
 await this.getRtStatusBays();
     if (this.devices.length > 0) {
       const idx = Math.floor(Math.random() * this.devices.length);
