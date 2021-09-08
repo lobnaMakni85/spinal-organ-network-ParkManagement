@@ -31,7 +31,7 @@ import {
 } from "./InputDataModel/InputDataModel";
 const xml2js = require("xml2js");
 
-
+import * as lodash from "lodash";
 type onDataFunctionType = (obj: InputDataDevice) => void;
 
 /**
@@ -173,7 +173,7 @@ category:el["ns2:idcategory"][0]
 
 }
 })
-console.log(JSON.stringify(bay));
+resolve(bay);
 
 })});
 
@@ -241,7 +241,9 @@ const bay=bays.map((el:any)=> {
   numero:name.split(" ")[1]
   }
   })
-  console.log(JSON.stringify(bay));
+  resolve(bay);
+
+
 })});
 
     }
@@ -355,9 +357,11 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
   private async  getAndUpdateOneRandomDevice() {
 //this.token = await this.getToken();
 console.log("la liste des voitures ************")
-await this.getBays();
+const b= await this.getBays();
 console.log("état des voitures ---------------------------------")
-//await this.getRtStatusBays();
+const rtstate= await this.getRtStatusBays();
+const corres=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
+console.log(corres)
     if (this.devices.length > 0) {
       const idx = Math.floor(Math.random() * this.devices.length);
       this.updateDevice(this.devices[idx]);
