@@ -164,9 +164,16 @@ console.log("*************************",this.token);
    // console.log(statusCode);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
-const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getRtBaysStatusResponse"][0]["rtBaysStatusList"][0];
+const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getRtBaysStatusResponse"][0]["rtBaysStatusList"][0]["ns2:RtBayStatus"];
 //console.log(JSON.stringify(bays));
-console.log(Object.keys(bays));
+const bay=bays.map((el:any)=> {
+return {id:el["ns2:idbay"][0],
+status:el["ns2:status"][0],
+category:el["ns2:idcategory"][0]
+
+}
+})
+console.log(JSON.stringify(bay));
 
 })});
 
