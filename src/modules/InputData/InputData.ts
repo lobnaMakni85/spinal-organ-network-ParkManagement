@@ -165,7 +165,9 @@ console.log("*************************",this.token);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getRtBaysStatusResponse"][0]["rtBaysStatusList"][0];
-console.log(JSON.stringify(bays));
+//console.log(JSON.stringify(bays));
+console.log(Object.keys(bays));
+
 })});
 
     }
