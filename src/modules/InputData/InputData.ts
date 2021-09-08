@@ -357,10 +357,10 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
   private async  getAndUpdateOneRandomDevice() {
 //this.token = await this.getToken();
 console.log("la liste des voitures ************")
-const b= await this.getBays();
+const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------")
 const rtstate:any= await this.getRtStatusBays();
-const corres=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
+const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
 console.log(corres)
     if (this.devices.length > 0) {
       const idx = Math.floor(Math.random() * this.devices.length);
