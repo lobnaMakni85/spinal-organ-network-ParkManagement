@@ -173,7 +173,9 @@ category:el["ns2:idcategory"][0]
 
 }
 })
+console.log(JSON.stringify(bay))
 resolve(bay);
+
 
 })});
 
