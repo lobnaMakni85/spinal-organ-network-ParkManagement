@@ -181,7 +181,7 @@ resolve(bay);
 
 catch(error){
 //console.log(e)
-if (error.reponse.statusCode === 401) {
+if (error.reponse.statusCode == 401) {
   
 		  console.log("error 401")
 		  await this.getToken()
@@ -250,7 +250,7 @@ const bay=bays.map((el:any)=> {
 
 catch(error){
 //console.log(e)
-if (error.reponse.statusCode === 401) {
+if (error.reponse.statusCode == 401) {
   
                   console.log("error 401")
                   await this.getToken()
@@ -358,7 +358,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
 //this.token = await this.getToken();
 console.log("la liste des voitures ************")
 const b:any= await this.getBays();
-console.log("état des voitures ---------------------------------")
+console.log("état des voitures ---------------------------------");
 const rtstate:any= await this.getRtStatusBays();
 const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
 console.log(corres)
