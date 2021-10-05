@@ -249,13 +249,13 @@ const bay=bays.map((el:any)=> {
     }
 
 catch(error){
-//console.log(e)
-if (error.reponse.statusCode == 401) {
+console.log(error)
+/*if (error.reponse.statusCode == 401) {
   
                   console.log("error 401")
                   await this.getToken()
 
-                }
+                }*/
 }
 }
 }
@@ -360,6 +360,7 @@ console.log("la liste des voitures ************")
 const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
 const rtstate:any= await this.getRtStatusBays();
+console.log(rtstate)
 const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
 console.log(corres)
     if (this.devices.length > 0) {
