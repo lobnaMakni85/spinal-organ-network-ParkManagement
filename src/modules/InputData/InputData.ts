@@ -111,6 +111,7 @@ const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
   // usage of module
 try{  const { response } = await soapRequest({ url: url, xml: xml}); // Optional timeout parameter(milliseconds)
     const { headers, body, statusCode } = response;
+    console.log("access function token")
     console.log("HEADERS**********")
     console.log(headers);
     console.log("BODY**********")
@@ -123,7 +124,7 @@ this.token=result["SOAP-ENV:Envelope"]['SOAP-ENV:Body'][0]["ns1:loginResponse"][
     console.log(statusCode);
 
  });}
-catch(e){}
+catch(e){console.log(e);}
 
 }
 
