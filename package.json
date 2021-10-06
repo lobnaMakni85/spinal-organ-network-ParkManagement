@@ -25,6 +25,7 @@
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/lodash": "^4.14.175",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.12",
     "doctoc": "^1.4.0",

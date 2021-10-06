@@ -30,7 +30,7 @@ import {
   InputDataEndpointType
 } from "./InputDataModel/InputDataModel";
 const xml2js = require("xml2js");
-
+const soapRequest = require('easy-soap-request');
 import * as lodash from "lodash";
 type onDataFunctionType = (obj: InputDataDevice) => void;
 
@@ -88,7 +88,7 @@ private token :any=null;
 
 async  getToken(){
 const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
-  const soapRequest = require('easy-soap-request');
+  
   console.log("access function token")
   const xml = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
@@ -132,7 +132,7 @@ catch(e){console.log(e);}
  async getRtStatusBays(){
   const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
 
-  const soapRequest = require('easy-soap-request');
+  //const soapRequest = require('easy-soap-request');
   
     if(this.token==null){
       this.token=await this.getToken();
@@ -182,13 +182,13 @@ resolve(bay);
     }
 
 catch(error){
-//console.log(e)
-if (error.reponse.statusCode == 401) {
+console.log(error)
+/*if (error.reponse.statusCode == 401) {
   
 		  console.log("error 401")
 		  await this.getToken()
 		   
-		}
+		}*/
 }
 }
 }
@@ -197,7 +197,7 @@ if (error.reponse.statusCode == 401) {
 async getBays(){
   const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
 
-  const soapRequest = require('easy-soap-request');
+  //const soapRequest = require('easy-soap-request');
 
     if(this.token==null){
       this.token=await this.getToken();
@@ -251,13 +251,13 @@ const bay=bays.map((el:any)=> {
     }
 
 catch(error){
-//console.log(e)
-if (error.reponse.statusCode == 401) {
+console.log(error)
+/*if (error.reponse.statusCode == 401) {
   
                   console.log("error 401")
                   await this.getToken()
 
-                }
+                }*/
 }
 }
 }
