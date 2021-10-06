@@ -232,7 +232,8 @@ console.log("*************************",this.token);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"];
-console.log("message*****************"+Object.keys(bays));
+console.log("BAAAAAAAAAAAAYYYYYYYYYYYYYYYYYYYYYSSSSSSSSSSSSSSSSSSSSS")
+console.log(Object.keys(bays));
 //console.log(JSON.stringify(bays));
 const bay=bays.map((el:any)=> {
   const name=el["ns2:name"][0];
