@@ -89,6 +89,7 @@ private token :any=null;
 async  getToken(){
 const  url = 'http://10.50.11.20/CP3Service/public/CP3WebInterface.php';
   const soapRequest = require('easy-soap-request');
+  console.log("access function token")
   const xml = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
               <soapenv:Header/>
