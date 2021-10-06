@@ -173,9 +173,7 @@ category:el["ns2:idcategory"][0]
 
 }
 })
-console.log(JSON.stringify(bay))
 resolve(bay);
-
 
 })});
 
@@ -233,7 +231,7 @@ console.log("*************************",this.token);
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"];
 console.log(Object.keys(bays));
-console.log(JSON.stringify(bays));
+//console.log(JSON.stringify(bays));
 const bay=bays.map((el:any)=> {
   const name=el["ns2:name"][0];
   return {id:el["ns2:idbay"][0],
@@ -251,13 +249,13 @@ const bay=bays.map((el:any)=> {
     }
 
 catch(error){
-console.log(error)
-/*if (error.reponse.statusCode == 401) {
+//console.log(e)
+if (error.reponse.statusCode == 401) {
   
                   console.log("error 401")
                   await this.getToken()
 
-                }*/
+                }
 }
 }
 }
@@ -362,7 +360,6 @@ console.log("la liste des voitures ************")
 const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
 const rtstate:any= await this.getRtStatusBays();
-console.log(rtstate)
 const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
 console.log(corres)
     if (this.devices.length > 0) {
