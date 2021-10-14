@@ -176,6 +176,7 @@ category:el["ns2:idcategory"][0]
 }
 })
 resolve(bay);
+console.log(bay)
 
 })});
 
@@ -233,7 +234,7 @@ console.log("*************************",this.token);
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"];
 console.log("*************KEYS"+Object.keys(bays));
-console.log("************JSON"+JSON.stringify(bays));
+//console.log("************JSON"+JSON.stringify(bays));
 const bay=bays.map((el:any)=> {
   const name=el["ns2:name"][0];
   return {id:el["ns2:idbay"][0],
@@ -288,7 +289,24 @@ console.log(error)
     ): any {
       return new constructor(str, type, str, "");
     }
-
+/*const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
+  
+	  data.forEach(element=> {
+		const child: InputDataEndpoint = new InputDataEndpoint(
+		  element.name,
+		  this.getDefaultValue(element.Type),
+		  element.Unit,
+		  this.getDataType(element.Type),
+		  InputDataEndpointType.Other,
+		  element.Id,
+		  element.url
+		);
+		res.children.push(child)
+	  });
+  
+  
+	  this.devices.push(res)
+	  return res;*/
     const res: InputDataDevice = createFunc(
       `Capteur_parking`,
       "device",
