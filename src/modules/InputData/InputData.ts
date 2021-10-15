@@ -54,6 +54,7 @@ class InputData {
    */
   private devices: InputDataDevice[];
 private token :any=null;  
+private bays:any;
 
   /**
    *Creates an instance of InputData.
@@ -64,7 +65,11 @@ private token :any=null;
     this.devices = [];
     this.onData = null;
     this.generateData();
-    setInterval(this.onDataInterval.bind(this), intervalTest);
+    this.getBays().then((bays)=>{
+      this.bays=bays;
+      setInterval(this.onDataInterval.bind(this), intervalTest);
+    })
+    
   }
 
   /**
@@ -73,7 +78,8 @@ private token :any=null;
    */
   private async onDataInterval() {
     if (this.onData !== null) {
-      this.onData(await this.getAndUpdateOneRandomDevice());
+      let rtData= await this.getRtStatusBays();
+      this.onData(await this.getAndUpdateOneRandomDevice(rtData));
     }
   }
 
@@ -339,36 +345,19 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
     return res;*/
   }
 
+
+
   /**
    * @private
    * @param {(InputDataDevice|InputDataEndpointGroup)} deviceOrEnpointGroup
    * @memberof InputData
    */
-  private updateDevice(
+  private async updateDevice(
     deviceOrEnpointGroup: InputDataDevice | InputDataEndpointGroup
-  ): void {
+  ): Promise<any> {
     
-    let randBool = 0;
-
-    for (const child of deviceOrEnpointGroup.children) {
-      if (child instanceof InputDataEndpoint) {
-        /*c'est ici que je dois faire ma requete*/
-          randBool = Math.random() ;
-          if (randBool >= 0.5) {
-            child.currentValue = true;
-          } else {
-            child.currentValue = false;
-          }
-        
-        console.log(child.currentValue);
-        }
-       else if (
-        child instanceof InputDataDevice ||
-        child instanceof InputDataEndpointGroup
-      ) {
-        this.updateDevice(child);
-      }
-    }
+    
+    
   }
 
   /**
@@ -376,12 +365,12 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    * @returns {InputDataDevice}
    * @memberof InputData
    */
-  private async  getAndUpdateOneRandomDevice() {
+  private async  getAndUpdateOneRandomDevice(data:any) {
 //this.token = await this.getToken();
 console.log("la liste des voitures ************")
 const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
-const rtstate:any= await this.getRtStatusBays();
+//const rtstate:any= await this.getRtStatusBays();
 const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
 console.log(corres)
     if (this.devices.length > 0) {
