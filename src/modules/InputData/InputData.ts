@@ -269,8 +269,9 @@ console.log(error)
    * @memberof InputData
    */
   private generateData() {
- 
-      let device = this.generateDataDevice();
+
+    let data=this.getBays()
+      let device = this.generateDataDevice(data);
       this.devices.push(device);
       this.updateDevice(device);
     
@@ -281,7 +282,7 @@ console.log(error)
    * @returns {InputDataDevice}
    * @memberof InputData
    */
-  private generateDataDevice(): InputDataDevice {
+  private generateDataDevice(data:any): InputDataDevice {
     function createFunc(
       str: string,
       type: string,
@@ -289,25 +290,25 @@ console.log(error)
     ): any {
       return new constructor(str, type, str, "");
     }
-/*const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
+const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
   
-	  data.forEach(element=> {
+	  data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
 		  element.name,
-		  this.getDefaultValue(element.Type),
-		  element.Unit,
-		  this.getDataType(element.Type),
+		  false,
+		  "",
+		  InputDataEndpointDataType.Boolean,
 		  InputDataEndpointType.Other,
 		  element.Id,
-		  element.url
+		  element.category
 		);
 		res.children.push(child)
 	  });
   
   
 	  this.devices.push(res)
-	  return res;*/
-    const res: InputDataDevice = createFunc(
+	  return res;
+    /*const res: InputDataDevice = createFunc(
       `Capteur_parking`,
       "device",
       InputDataDevice
@@ -334,7 +335,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
 
     res.children.push(CHILD_1, CHILD_2);
 }
-    return res;
+    return res;*/
   }
 
   /**
