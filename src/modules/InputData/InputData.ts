@@ -268,9 +268,9 @@ console.log(error)
    * @private
    * @memberof InputData
    */
-  private generateData() {
+  private async generateData() {
 
-    let data=this.getBays()
+    let data=await this.getBays()
     console.log(data)
       let device = this.generateDataDevice(data);
       this.devices.push(device);
