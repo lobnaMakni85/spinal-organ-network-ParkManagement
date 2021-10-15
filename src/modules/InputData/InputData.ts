@@ -176,7 +176,7 @@ category:el["ns2:idcategory"][0]
 }
 })
 resolve(bay);
-console.log(bay)
+//console.log(bay)
 
 })});
 
@@ -245,7 +245,7 @@ const bay=bays.map((el:any)=> {
   }
   })
   resolve(bay);
-  console.log(bay)
+  //console.log(bay)
 
 })});
 
@@ -271,6 +271,7 @@ console.log(error)
   private generateData() {
 
     let data=this.getBays()
+    console.log(data)
       let device = this.generateDataDevice(data);
       this.devices.push(device);
       this.updateDevice(device);
