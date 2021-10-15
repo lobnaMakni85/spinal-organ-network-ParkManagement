@@ -371,8 +371,8 @@ console.log("la liste des voitures ************")
 const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
 //const rtstate:any= await this.getRtStatusBays();
-const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
-console.log(corres)
+//const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
+//console.log(corres)
     if (this.devices.length > 0) {
       const idx = Math.floor(Math.random() * this.devices.length);
       this.updateDevice(this.devices[idx]);
