@@ -295,13 +295,13 @@ const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
   
 	  data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
-		  element.name,
+		  element.numero,
 		  false,
 		  "",
 		  InputDataEndpointDataType.Boolean,
 		  InputDataEndpointType.Other,
-		  element.Id,
-		  element.category
+		  element.id,
+		  element.etage
 		);
 		res.children.push(child)
 	  });
