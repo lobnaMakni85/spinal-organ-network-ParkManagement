@@ -276,7 +276,7 @@ console.log(error)
    */
   private async generateData(data:any) {
 
-    
+    console.log("*************BAYS"+data)
       let device = this.generateDataDevice(data);
       this.devices.push(device);
       this.updateDevice(device);
@@ -377,8 +377,8 @@ console.log("état des voitures ---------------------------------");
       this.updateDevice(this.devices[idx]);
       return this.devices[idx];
     }
-    this.generateData(this.bays);
-    //return this.getAndUpdateOneRandomDevice();
+    this.generateData(data);
+    //return this.getAndUpdateOneRandomDevice(data);
   }
 }
 
