@@ -64,12 +64,12 @@ private bays:any;
     const intervalTest = 1000*2;
     this.devices = [];
     this.onData = null;
-    this.generateData();
+    
     this.getBays().then((bays)=>{
       this.bays=bays;
       setInterval(this.onDataInterval.bind(this), intervalTest);
     })
-    
+    this.generateData();
   }
 
   /**
