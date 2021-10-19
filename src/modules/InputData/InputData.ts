@@ -367,7 +367,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
   private async  getAndUpdateOneRandomDevice(data:any) {
 //this.token = await this.getToken();
 //console.log("la liste des voitures ************")
-const b:any= await this.getBays();
+//const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
 //const rtstate:any= await this.getRtStatusBays();
 //const corres:any=lodash.values(lodash.merge(lodash.keyBy(b,'id'),lodash.keyBy(rtstate,'id')));
@@ -377,7 +377,7 @@ console.log("état des voitures ---------------------------------");
       this.updateDevice(this.devices[idx]);
       return this.devices[idx];
     }
-    this.generateData();
+    this.generateData(this.bays);
     //return this.getAndUpdateOneRandomDevice();
   }
 }
