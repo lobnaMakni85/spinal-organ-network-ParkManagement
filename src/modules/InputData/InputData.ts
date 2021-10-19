@@ -61,7 +61,7 @@ private bays:any;
    * @memberof InputData
    */
   constructor() {
-    const intervalTest = 1000;
+    const intervalTest = 1000*2;
     this.devices = [];
     this.onData = null;
     this.generateData();
@@ -367,7 +367,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    */
   private async  getAndUpdateOneRandomDevice(data:any) {
 //this.token = await this.getToken();
-console.log("la liste des voitures ************")
+//console.log("la liste des voitures ************")
 const b:any= await this.getBays();
 console.log("état des voitures ---------------------------------");
 //const rtstate:any= await this.getRtStatusBays();
