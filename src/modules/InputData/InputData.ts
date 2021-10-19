@@ -277,7 +277,7 @@ console.log(error)
   private async generateData() {
 
     let data=await this.getBays()
-    console.log(data)
+    console.log("**************generate data"+data)
       let device = this.generateDataDevice(data);
       this.devices.push(device);
       this.updateDevice(device);
