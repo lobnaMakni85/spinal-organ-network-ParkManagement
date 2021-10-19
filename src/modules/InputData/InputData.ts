@@ -53,8 +53,8 @@ class InputData {
    * @memberof InputData
    */
   private devices: InputDataDevice[];
-private token :any=null;  
-private bays:any;
+  private token :any=null;  
+  private bays:any;
 
   /**
    *Creates an instance of InputData.
@@ -69,7 +69,7 @@ private bays:any;
       this.bays=bays;
       setInterval(this.onDataInterval.bind(this), intervalTest);
     })
-    this.generateData();
+    this.generateData(this.bays);
   }
 
   /**
@@ -274,10 +274,9 @@ console.log(error)
    * @private
    * @memberof InputData
    */
-  private async generateData() {
+  private async generateData(data:any) {
 
-    let data=this.bays;
-    console.log("**************generate data"+this.bays)
+    
       let device = this.generateDataDevice(data);
       this.devices.push(device);
       this.updateDevice(device);
