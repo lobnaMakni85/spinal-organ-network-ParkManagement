@@ -251,7 +251,7 @@ const bay=bays.map((el:any)=> {
   }
   })
   resolve(bay);
-  //console.log(bay)
+  console.log(bay)
 
 })});
 
