@@ -61,7 +61,7 @@ class InputData {
    * @memberof InputData
    */
   constructor() {
-    const intervalTest = 1000*2;
+    const intervalTest = 1000*60*2;
     this.devices = [];
     this.onData = null;
     
@@ -275,12 +275,17 @@ console.log(error)
    * @memberof InputData
    */
   private async generateData(data:any) {
-
-    console.log("*************BAYS"+data)
-      let device = this.generateDataDevice(data);
-      this.devices.push(device);
-      this.updateDevice(device);
-    
+    try{
+      if(this.bays!=null){
+        console.log("*************BAYS")
+        let device = this.generateDataDevice(data);
+        this.devices.push(device);
+        this.updateDevice(device);
+    }
+  }
+  catch(e){
+  console.log(e)
+  }
   }
 
 /**
