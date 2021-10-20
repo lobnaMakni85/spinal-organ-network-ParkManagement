@@ -242,12 +242,12 @@ const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"
 console.log("*************KEYS"+Object.keys(bays));
 //console.log("************JSON"+JSON.stringify(bays));
 const bay=bays.map((el:any)=> {
-  const name=el["ns2:name"][0];
+  //const name=el["ns2:name"][0];
   return {id:el["ns2:idbay"][0],
-  name,
-  etage:name.split(" ")[0].split("")[0],
-  zone:name.split(" ")[0].split("")[1],
-  numero:name.split(" ")[1]
+  name:el["ns2:name"][0],
+  etage:el["ns2:name"][0].split(" ")[0].split("")[0],
+  zone:el["ns2:name"][0].split(" ")[0].split("")[1],
+  numero:el["ns2:name"][0].split(" ")[1]
   }
   })
   resolve(bay);
