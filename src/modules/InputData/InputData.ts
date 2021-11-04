@@ -254,7 +254,7 @@ const bay=bays.map((el:any)=> {
   }
   })
   resolve(bay);
-  console.log(bay)
+  //console.log(bay)
 
 })});
 
@@ -283,6 +283,7 @@ console.log(error)
         console.log("*************BAYS")
         data.forEach((element:any) => {
         let device = this.generateDataDevice(element);
+        console.log(device)
         this.devices.push(device);
         this.updateDevice(device);
         });
