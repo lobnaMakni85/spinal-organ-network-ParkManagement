@@ -103,7 +103,9 @@ public init(){
 
   private getNewValue(deviceId:any, rtData:Array<{id:any ,state:any}>){
     const found=rtData.find(el=> el.id==deviceId);
+    console.log(found)
     return found && found.state ? true : false; 
+    
   }
 
   /**
