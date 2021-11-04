@@ -302,15 +302,16 @@ console.log(error)
    */
   private generateDataDevice(data:any): InputDataDevice {
     function createFunc(
+      name: string,
+      type:string,
       id: string,
-      name:string,
-      type: string,
+      path:string,
       constructor: typeof InputDataDevice | typeof InputDataEndpointGroup
     ): any {
-      return new constructor(id,name, type, "");
+      return new constructor(name,type,id,path)
     }
     //console.log(data)
-const res: InputDataDevice = createFunc(data.id, data.name,"device", InputDataDevice);
+const res: InputDataDevice = createFunc(data.name,"Place n°"+data.id, data.id, '',InputDataDevice);
   
 	  /*data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
