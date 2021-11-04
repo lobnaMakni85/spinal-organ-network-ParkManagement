@@ -242,7 +242,7 @@ console.log("*************************",this.token);
 
 return new Promise((resolve)=>{xml2js.parseString(body,(err:any, result:any)=>{
 const bays=result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:getBaysResponse"][0]["baysList"][0]["ns2:Bay"];
-console.log("*************KEYS"+Object.keys(bays));
+//console.log("*************KEYS"+Object.keys(bays));
 //console.log("************JSON"+JSON.stringify(bays));
 const bay=bays.map((el:any)=> {
   //const name=el["ns2:name"][0];
@@ -281,12 +281,12 @@ console.log(error)
     try{
       if(this.bays!=null){
         console.log("*************BAYS")
-        data.forEach((element:any) => {
-        let device = this.generateDataDevice(element);
+        //data.forEach((element:any) => {
+        let device = this.generateDataDevice(data);
         console.log(device)
         //this.devices.push(device);
         
-        });
+        //});
         //this.updateDevice(device);
     }
   }
@@ -311,9 +311,9 @@ console.log(error)
       return new constructor(name,type,id,path)
     }
     //console.log(data)
-const res: InputDataDevice = createFunc(data.numero,"device",data.id, data.name,InputDataDevice);
+const res: InputDataDevice = createFunc("Parking","device","id", "",InputDataDevice);
   
-	  /*data.forEach((element:any)=> {
+	  data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
 		  element.numero,
 		  false,
@@ -321,10 +321,10 @@ const res: InputDataDevice = createFunc(data.numero,"device",data.id, data.name,
 		  InputDataEndpointDataType.Boolean,
 		  InputDataEndpointType.Other,
 		  element.id,
-		  element.etage
+		  element.name
 		);
 		res.children.push(child)
-	  });*/
+	  });
   
   
 	  this.devices.push(res)
