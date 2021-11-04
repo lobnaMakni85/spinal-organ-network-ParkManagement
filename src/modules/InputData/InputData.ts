@@ -66,7 +66,7 @@ class InputData {
     this.onData = null;
     
     this.getBays().then((bays)=>{
-      console.log(bays)
+      //console.log(bays)
       this.bays=bays;
       this.generateData(this.bays);
       //setInterval(this.onDataInterval.bind(this), intervalTest);
