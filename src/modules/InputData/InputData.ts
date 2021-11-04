@@ -32,6 +32,7 @@ import {
 const xml2js = require("xml2js");
 const soapRequest = require('easy-soap-request');
 import * as lodash from "lodash";
+import { promises } from "fs";
 type onDataFunctionType = (obj: InputDataDevice) => void;
 
 /**
@@ -82,11 +83,27 @@ public init(){
    * @memberof InputData
    */
   private async onDataInterval() {
+    
     if (this.onData !== null) {
+      //const promises=[];
       let rtData= await this.getRtStatusBays();
       console.log(rtData);
+      for (const device of this.devices) {
+        //promises.push( this.updateDevice(device,rtData));
+        await this.updateDevice(device,rtData)
+        this.onData(device)
+      }
+      //await Promise.all(promises)
+ 
       //this.onData(await this.getAndUpdateOneRandomDevice(rtData));
     }
+  }
+
+
+
+  private getNewValue(deviceId:any, rtData:Array<{id:any ,state:any}>){
+    const found=rtData.find(el=> el.id==deviceId);
+    return found && found.state ? true : false; 
   }
 
   /**
@@ -369,12 +386,15 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    * @param {(InputDataDevice|InputDataEndpointGroup)} deviceOrEnpointGroup
    * @memberof InputData
    */
-  private async updateDevice(
-    deviceOrEnpointGroup: InputDataDevice | InputDataEndpointGroup
-  ): Promise<any> {
-    let rtBays= await this.getRtStatusBays()
-
-    console.log(rtBays)
+  private async updateDevice( deviceOrEnpointGroup: InputDataDevice | InputDataEndpointGroup,rtData:any): Promise<any> {
+    for (const child of deviceOrEnpointGroup.children) {
+      if(child instanceof InputDataEndpoint){
+        child.currentValue=this.getNewValue(child.idx, rtData)
+      }
+      else if(child instanceof InputDataDevice || child instanceof InputDataEndpointGroup){
+        this.updateDevice(child, rtData)
+      }
+    }
     
   }
 
@@ -383,7 +403,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
    * @returns {InputDataDevice}
    * @memberof InputData
    */
-  private async  getAndUpdateOneRandomDevice(data:any) {
+ /* private async  getAndUpdateOneRandomDevice(data:any) {
 //this.token = await this.getToken();
 //console.log("la liste des voitures ************")
 //const b:any= await this.getBays();
@@ -398,7 +418,7 @@ console.log("état des voitures ---------------------------------");
     }
     this.generateData(data);
     //return this.getAndUpdateOneRandomDevice(data);
-  }
+  }*/
 }
 
 export { InputData };
