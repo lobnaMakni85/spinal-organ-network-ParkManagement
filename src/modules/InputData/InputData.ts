@@ -87,7 +87,7 @@ public init(){
     if (this.onData !== null) {
       //const promises=[];
       let rtData= await this.getRtStatusBays();
-      console.log(rtData);
+      //console.log(rtData);
       for (const device of this.devices) {
         //promises.push( this.updateDevice(device,rtData));
         await this.updateDevice(device,rtData)
@@ -303,7 +303,7 @@ console.log(error)
         console.log("*************BAYS")
         //data.forEach((element:any) => {
         let device = this.generateDataDevice(data);
-        console.log(device)
+        //console.log(device)
         //this.devices.push(device);
         
         //});
@@ -390,6 +390,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
     for (const child of deviceOrEnpointGroup.children) {
       if(child instanceof InputDataEndpoint){
         child.currentValue=this.getNewValue(child.id, rtData)
+        console.log(child.name+"  "+child.currentValue)
       }
       else if(child instanceof InputDataDevice || child instanceof InputDataEndpointGroup){
         this.updateDevice(child, rtData)
