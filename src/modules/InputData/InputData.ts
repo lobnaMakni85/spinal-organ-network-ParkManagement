@@ -69,7 +69,7 @@ class InputData {
       //console.log(bays)
       this.bays=bays;
       this.generateData(this.bays);
-      //setInterval(this.onDataInterval.bind(this), intervalTest);
+      setInterval(this.onDataInterval.bind(this), intervalTest);
     })
 
     
@@ -284,10 +284,10 @@ console.log(error)
         data.forEach((element:any) => {
         let device = this.generateDataDevice(element);
         console.log(device)
-        this.devices.push(device);
-        this.updateDevice(device);
-        });
+        //this.devices.push(device);
         
+        });
+        //this.updateDevice(device);
     }
   }
   catch(e){
@@ -324,10 +324,10 @@ const res: InputDataDevice = createFunc(data.numero,"device",data.id, data.name,
 		  element.etage
 		);
 		res.children.push(child)
-	  });
+	  });*/
   
   
-	  this.devices.push(res)*/
+	  this.devices.push(res)
 	  return res;
     /*const res: InputDataDevice = createFunc(
       `Capteur_parking`,
