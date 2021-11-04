@@ -61,14 +61,14 @@ class InputData {
    * @memberof InputData
    */
   constructor() {
-    const intervalTest = 1000*60*2;
+    const intervalTest = 1000*60;
     this.devices = [];
     this.onData = null;
     
-    this.getBays().then((bays)=>{
+    this.getBays().then(async (bays)=>{
       //console.log(bays)
       this.bays=bays;
-      this.generateData(this.bays);
+      await this.generateData(this.bays);
       setInterval(this.onDataInterval.bind(this), intervalTest);
     })
 
