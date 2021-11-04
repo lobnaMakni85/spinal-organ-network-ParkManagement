@@ -56,7 +56,7 @@ class InputData {
   private devices: InputDataDevice[];
   private token :any=null;  
   private bays:any;
-  private intervalTest = 1000*60;
+  private intervalTest = 1000*60*2;
   /**
    *Creates an instance of InputData.
    * @memberof InputData
@@ -389,7 +389,7 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
   private async updateDevice( deviceOrEnpointGroup: InputDataDevice | InputDataEndpointGroup,rtData:any): Promise<any> {
     for (const child of deviceOrEnpointGroup.children) {
       if(child instanceof InputDataEndpoint){
-        child.currentValue=this.getNewValue(child.idx, rtData)
+        child.currentValue=this.getNewValue(child.id, rtData)
       }
       else if(child instanceof InputDataDevice || child instanceof InputDataEndpointGroup){
         this.updateDevice(child, rtData)
