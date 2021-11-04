@@ -311,7 +311,7 @@ console.log(error)
       return new constructor(name,type,id,path)
     }
     //console.log(data)
-const res: InputDataDevice = createFunc(data.name,"Place n°"+data.id, data.id, '',InputDataDevice);
+const res: InputDataDevice = createFunc(data.numero,"device",data.id, data.name,InputDataDevice);
   
 	  /*data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
