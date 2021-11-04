@@ -281,9 +281,12 @@ console.log(error)
     try{
       if(this.bays!=null){
         console.log("*************BAYS")
-        let device = this.generateDataDevice(data);
+        data.forEach((element:any) => {
+        let device = this.generateDataDevice(element);
         this.devices.push(device);
         this.updateDevice(device);
+        });
+        
     }
   }
   catch(e){
@@ -298,16 +301,17 @@ console.log(error)
    */
   private generateDataDevice(data:any): InputDataDevice {
     function createFunc(
-      str: string,
+      id: string,
+      name:string,
       type: string,
       constructor: typeof InputDataDevice | typeof InputDataEndpointGroup
     ): any {
-      return new constructor(str, type, str, "");
+      return new constructor(id,name, type, "");
     }
-    console.log(data)
-/*const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
+    //console.log(data)
+const res: InputDataDevice = createFunc(data.id, data.name,"device", InputDataDevice);
   
-	  data.forEach((element:any)=> {
+	  /*data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
 		  element.numero,
 		  false,
@@ -322,7 +326,7 @@ console.log(error)
   
   
 	  this.devices.push(res)*/
-	  return ;
+	  return res;
     /*const res: InputDataDevice = createFunc(
       `Capteur_parking`,
       "device",
