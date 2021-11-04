@@ -304,7 +304,8 @@ console.log(error)
     ): any {
       return new constructor(str, type, str, "");
     }
-const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
+    console.log(data)
+/*const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
   
 	  data.forEach((element:any)=> {
 		const child: InputDataEndpoint = new InputDataEndpoint(
@@ -320,8 +321,8 @@ const res: InputDataDevice = createFunc(data, "device", InputDataDevice);
 	  });
   
   
-	  this.devices.push(res)
-	  return res;
+	  this.devices.push(res)*/
+	  return ;
     /*const res: InputDataDevice = createFunc(
       `Capteur_parking`,
       "device",
