@@ -212,7 +212,7 @@ async getBays(){
       this.token=await this.getToken();
 console.log("recherche token")
  }
-else{
+//else{
 console.log("*************************",this.token);
     const xml=`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
@@ -268,7 +268,7 @@ console.log(error)
 
                 }*/
 }
-}
+//}
 }
 
 
