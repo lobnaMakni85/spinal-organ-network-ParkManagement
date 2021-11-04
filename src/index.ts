@@ -50,7 +50,7 @@ function onLoadError() {
 }
 
 // called if connected to the server and if the spinalhub sent us the Model
-function onLoadSuccess(forgeFile: ForgeFileItem) {
+async function onLoadSuccess(forgeFile: ForgeFileItem) {
   console.log("Connected to the server and got a the Entry Model");
   const inputData = new InputData();
   const networkProcess = new NetworkProcess(inputData);
@@ -58,5 +58,6 @@ function onLoadSuccess(forgeFile: ForgeFileItem) {
   // reset data for test purpose
   // if (typeof forgeFile.graph !== 'undefined') forgeFile.rem_attr('graph');
 
-  networkProcess.init(forgeFile, config.organ);
+ await networkProcess.init(forgeFile, config.organ);
+ inputData.init();
 }

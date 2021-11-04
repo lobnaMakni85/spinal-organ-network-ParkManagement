@@ -55,26 +55,28 @@ class InputData {
   private devices: InputDataDevice[];
   private token :any=null;  
   private bays:any;
-
+  private intervalTest = 1000*60;
   /**
    *Creates an instance of InputData.
    * @memberof InputData
    */
   constructor() {
-    const intervalTest = 1000*60;
+    
     this.devices = [];
     this.onData = null;
     
-    this.getBays().then(async (bays)=>{
-      //console.log(bays)
-      this.bays=bays;
-      await this.generateData(this.bays);
-      setInterval(this.onDataInterval.bind(this), intervalTest);
-    })
+    
 
     
   }
-
+public init(){
+  this.getBays().then(async (bays)=>{
+    //console.log(bays)
+    this.bays=bays;
+    await this.generateData(this.bays);
+    setInterval(this.onDataInterval.bind(this), this.intervalTest);
+  })
+}
   /**
    * @private
    * @memberof InputData
@@ -82,7 +84,8 @@ class InputData {
   private async onDataInterval() {
     if (this.onData !== null) {
       let rtData= await this.getRtStatusBays();
-      this.onData(await this.getAndUpdateOneRandomDevice(rtData));
+      console.log(rtData);
+      //this.onData(await this.getAndUpdateOneRandomDevice(rtData));
     }
   }
 
@@ -147,7 +150,7 @@ catch(e){console.log(e);}
       this.token=await this.getToken();
 console.log("recherche token")   
  }
-else{
+//else{
 console.log("*************************",this.token);
     const xml=`<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cp3="http://10.50.11.20/CP3Service/public/CP3WebInterface">
 
@@ -200,7 +203,7 @@ console.log(error)
 		   
 		}*/
 }
-}
+//}
 }
 
 
@@ -369,8 +372,9 @@ const CHILD_2: InputDataEndpoint = new InputDataEndpoint(
   private async updateDevice(
     deviceOrEnpointGroup: InputDataDevice | InputDataEndpointGroup
   ): Promise<any> {
-    
-    
+    let rtBays= await this.getRtStatusBays()
+
+    console.log(rtBays)
     
   }
 
