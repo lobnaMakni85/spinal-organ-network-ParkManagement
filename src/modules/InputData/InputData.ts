@@ -101,10 +101,16 @@ public init(){
 
 
 
-  private getNewValue(deviceId:any, rtData:Array<{id:any ,state:any}>){
+  private getNewValue(deviceId:any, rtData:Array<{id:any ,status:any}>){
     const found=rtData.find(el=> el.id==deviceId);
-    console.log(found)
-    return found && found.state ? true : false; 
+    //const statut=found && parseInt(found.status); 
+    if (found && found.status!=-2)
+    {
+      return parseInt(found.status) ? true : false
+    }
+
+    return false;
+
     
   }
 
